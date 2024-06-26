@@ -9,8 +9,7 @@ class MovieViewSet(viewsets.ModelViewSet):
   queryset = Movie.objects.all()
   serializer_class = MovieSerializer
 
-  @action(detail=False, methods=['get'])
-  def get_by_name(self, request):
+  def list(self, request):
     name = request.query_params.get('name', None)
     if name:
       queryset = Movie.objects.filter(title__icontains=name)
