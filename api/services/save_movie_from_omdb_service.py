@@ -1,6 +1,8 @@
 from api.models.rating import Rating
 from api.serializers.movie_serializer import MovieSerializer
 from api.libs.omdb_api_client import OMDbApiClient
+from rest_framework import status
+import pdb
 
 class SaveMovieFromOmdbService:
   omdb_client = OMDbApiClient()
@@ -31,8 +33,11 @@ class SaveMovieFromOmdbService:
             ratings,
             serializer.data
           ]
+          
           return data_response
         else:
+          print('---')
+          print(serializer.errors)
           error_message = {'error': 'Error saving movie data.'}
           return error_message, status.HTTP_500_INTERNAL_SERVER_ERROR
       else:
@@ -40,5 +45,7 @@ class SaveMovieFromOmdbService:
         return error_message, status.HTTP_404_NOT_FOUND
 
     except ValueError as e:
+      print('---')
+      print(e)
       error_message = {'error': 'Process Error'}
       return error_message, status.HTTP_500_INTERNAL_SERVER_ERROR
