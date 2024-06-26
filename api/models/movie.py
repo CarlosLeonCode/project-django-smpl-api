@@ -1,5 +1,4 @@
 from django.db import models
-from .rating import Rating
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
@@ -26,6 +25,3 @@ class Movie(models.Model):
     production = models.CharField(max_length=255, null=True, blank=True)
     website = models.URLField(null=True, blank=True)
     response = models.CharField(max_length=10)
-
-    # Relationships
-    ratings = models.ManyToManyField(Rating)
